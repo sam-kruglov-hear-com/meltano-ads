@@ -1,0 +1,299 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: b10b7a4b-1c46-4656-9390-45740d531d25
+plugins:
+  extractors:
+  - name: tap-facebook
+    variant: meltano
+    pip_url: ../tap-facebook
+    config:
+      account_id: '675490969528187'
+      insights_buffer_days: 1
+      start_date: '2021-06-01'
+      result_return_limit: 1000
+    select:
+      - ads.bid_amount
+      - ads.tracking_specs
+      - ads.updated_time
+      - ads.campaign_id
+      - ads.conversion_specs
+      - ads.created_time
+      - ads.creative
+      - ads.creative.creative_id
+      - ads.creative.id
+      - ads.effective_status
+      - ads.id
+      - ads.last_updated_by_app_id
+      - ads.name
+      - ads.recommendations
+      - ads.source_ad_id
+      - ads.status
+      - ads.targeting
+      - ads.targeting.age_max
+      - ads.targeting.age_min
+      - ads_insights_dma.dma
+      - ads_insights_*.date_start
+      - ads_insights_age_and_gender.age
+      - ads_insights_age_and_gender.gender
+      - ads_insights_hourly.hourly_stats_aggregated_by_advertiser_time_zone
+      - ads_insights_platform_and_device.impression_device
+      - ads_insights_platform_and_device.engagement_rate_ranking
+      - ads_insights_platform_and_device.placement
+      - ads_insights_platform_and_device.platform_position
+      - ads_insights_platform_and_device.publisher_platform
+      - ads_insights_platform_and_device.quality_ranking
+      - ads_insights*.impression*
+      - ads_insights*.clicks*
+      - ads_insights*.inline_post_engagement*
+      - ads_insights*.spend*
+      - ads_insights*.ad_id
+      - ads_insights*.campaign_id*
+      - ads_insights*.account_id*
+      - ads_insights*.spend*
+      - ads_insights*.index*
+      - ad_id
+      - '*hourly*'
+      - adsets.*
+      - campaigns.*
+  - name: tap-adwords
+    variant: meltano
+    pip_url: git+https://gitlab.com/meltano/tap-adwords.git
+    config:
+      customer_ids: '8456648347'
+      primary_keys:
+        a_d__performanc_e__repor_t:
+        - customerID
+        - campaignID
+        - adGroupID
+        - adID
+        - day
+        - network
+        - device
+        keyword_s__performanc_e__repor_t:
+        - customerID
+        - campaignID
+        - adGroupID
+        - keywordID
+        - day
+        - network
+        - device
+      start_date: '2021-05-01'
+    select:
+    - campaigns.*
+    - ad_groups.*
+    - ads.*
+    - accounts.*
+    - KEYWORDS_PERFORMANCE_REPORT.customerID
+    - KEYWORDS_PERFORMANCE_REPORT.account
+    - KEYWORDS_PERFORMANCE_REPORT.currency
+    - KEYWORDS_PERFORMANCE_REPORT.timeZone
+    - KEYWORDS_PERFORMANCE_REPORT.clientName
+    - KEYWORDS_PERFORMANCE_REPORT.campaign
+    - KEYWORDS_PERFORMANCE_REPORT.campaignID
+    - KEYWORDS_PERFORMANCE_REPORT.campaignState
+    - KEYWORDS_PERFORMANCE_REPORT.adGroup
+    - KEYWORDS_PERFORMANCE_REPORT.adGroupID
+    - KEYWORDS_PERFORMANCE_REPORT.adGroupState
+    - KEYWORDS_PERFORMANCE_REPORT.day
+    - KEYWORDS_PERFORMANCE_REPORT.network
+    - KEYWORDS_PERFORMANCE_REPORT.device
+    - KEYWORDS_PERFORMANCE_REPORT.clicks
+    - KEYWORDS_PERFORMANCE_REPORT.cost
+    - KEYWORDS_PERFORMANCE_REPORT.impressions
+    - KEYWORDS_PERFORMANCE_REPORT.interactions
+    - KEYWORDS_PERFORMANCE_REPORT.engagements
+    - KEYWORDS_PERFORMANCE_REPORT.conversions
+    - KEYWORDS_PERFORMANCE_REPORT.allConv
+    - KEYWORDS_PERFORMANCE_REPORT.views
+    - KEYWORDS_PERFORMANCE_REPORT.activeViewViewableImpressions
+    - KEYWORDS_PERFORMANCE_REPORT.activeViewMeasurableImpr
+    - KEYWORDS_PERFORMANCE_REPORT.activeViewMeasurableCost
+    - KEYWORDS_PERFORMANCE_REPORT.gmailClicksToWebsite
+    - KEYWORDS_PERFORMANCE_REPORT.gmailSaves
+    - KEYWORDS_PERFORMANCE_REPORT.gmailForwards
+    - KEYWORDS_PERFORMANCE_REPORT.keywordID
+    - KEYWORDS_PERFORMANCE_REPORT.keyword
+    - KEYWORDS_PERFORMANCE_REPORT.keywordState
+    - KEYWORDS_PERFORMANCE_REPORT.criterionServingStatus
+    - KEYWORDS_PERFORMANCE_REPORT.destinationURL
+    - KEYWORDS_PERFORMANCE_REPORT.matchType
+    - KEYWORDS_PERFORMANCE_REPORT.topOfPageCPC
+    - KEYWORDS_PERFORMANCE_REPORT.firstPageCPC
+    - KEYWORDS_PERFORMANCE_REPORT.imprAbsTop
+    - KEYWORDS_PERFORMANCE_REPORT.activeViewAvgCPM
+    - KEYWORDS_PERFORMANCE_REPORT.activeViewViewableCTR
+    - KEYWORDS_PERFORMANCE_REPORT.activeViewMeasurableImprImpr
+    - KEYWORDS_PERFORMANCE_REPORT.activeViewViewableImprMeasurableImpr
+    - KEYWORDS_PERFORMANCE_REPORT.allConvRate
+    - KEYWORDS_PERFORMANCE_REPORT.allConvValue
+    - KEYWORDS_PERFORMANCE_REPORT.avgCost
+    - KEYWORDS_PERFORMANCE_REPORT.avgCPC
+    - KEYWORDS_PERFORMANCE_REPORT.avgCPE
+    - KEYWORDS_PERFORMANCE_REPORT.avgCPM
+    - KEYWORDS_PERFORMANCE_REPORT.avgCPV
+    - KEYWORDS_PERFORMANCE_REPORT.avgPosition
+    - KEYWORDS_PERFORMANCE_REPORT.convRate
+    - KEYWORDS_PERFORMANCE_REPORT.totalConvValue
+    - KEYWORDS_PERFORMANCE_REPORT.costAllConv
+    - KEYWORDS_PERFORMANCE_REPORT.costConv
+    - KEYWORDS_PERFORMANCE_REPORT.costConvCurrentModel
+    - KEYWORDS_PERFORMANCE_REPORT.crossDeviceConv
+    - KEYWORDS_PERFORMANCE_REPORT.ctr
+    - KEYWORDS_PERFORMANCE_REPORT.conversionsCurrentModel
+    - KEYWORDS_PERFORMANCE_REPORT.convValueCurrentModel
+    - KEYWORDS_PERFORMANCE_REPORT.engagementRate
+    - KEYWORDS_PERFORMANCE_REPORT.interactionRate
+    - KEYWORDS_PERFORMANCE_REPORT.interactionTypes
+    - KEYWORDS_PERFORMANCE_REPORT.imprTop
+    - KEYWORDS_PERFORMANCE_REPORT.valueAllConv
+    - KEYWORDS_PERFORMANCE_REPORT.valueConv
+    - KEYWORDS_PERFORMANCE_REPORT.valueConvCurrentModel
+    - KEYWORDS_PERFORMANCE_REPORT.videoPlayedTo100
+    - KEYWORDS_PERFORMANCE_REPORT.videoPlayedTo25
+    - KEYWORDS_PERFORMANCE_REPORT.videoPlayedTo50
+    - KEYWORDS_PERFORMANCE_REPORT.videoPlayedTo75
+    - KEYWORDS_PERFORMANCE_REPORT.viewRate
+    - KEYWORDS_PERFORMANCE_REPORT.searchAbsTopIS
+    - KEYWORDS_PERFORMANCE_REPORT.searchLostAbsTopISBudget
+    - KEYWORDS_PERFORMANCE_REPORT.searchLostTopISBudget
+    - KEYWORDS_PERFORMANCE_REPORT.searchExactMatchIS
+    - KEYWORDS_PERFORMANCE_REPORT.searchImprShare
+    - KEYWORDS_PERFORMANCE_REPORT.searchLostAbsTopISRank
+    - KEYWORDS_PERFORMANCE_REPORT.searchLostISRank
+    - KEYWORDS_PERFORMANCE_REPORT.searchLostTopISRank
+    - KEYWORDS_PERFORMANCE_REPORT.searchTopIS
+    - AD_PERFORMANCE_REPORT.customerID
+    - AD_PERFORMANCE_REPORT.account
+    - AD_PERFORMANCE_REPORT.currency
+    - AD_PERFORMANCE_REPORT.timeZone
+    - AD_PERFORMANCE_REPORT.clientName
+    - AD_PERFORMANCE_REPORT.campaign
+    - AD_PERFORMANCE_REPORT.campaignID
+    - AD_PERFORMANCE_REPORT.campaignState
+    - AD_PERFORMANCE_REPORT.adGroup
+    - AD_PERFORMANCE_REPORT.adGroupID
+    - AD_PERFORMANCE_REPORT.adGroupState
+    - AD_PERFORMANCE_REPORT.day
+    - AD_PERFORMANCE_REPORT.network
+    - AD_PERFORMANCE_REPORT.device
+    - AD_PERFORMANCE_REPORT.clicks
+    - AD_PERFORMANCE_REPORT.cost
+    - AD_PERFORMANCE_REPORT.impressions
+    - AD_PERFORMANCE_REPORT.interactions
+    - AD_PERFORMANCE_REPORT.engagements
+    - AD_PERFORMANCE_REPORT.conversions
+    - AD_PERFORMANCE_REPORT.allConv
+    - AD_PERFORMANCE_REPORT.views
+    - AD_PERFORMANCE_REPORT.activeViewViewableImpressions
+    - AD_PERFORMANCE_REPORT.activeViewMeasurableImpr
+    - AD_PERFORMANCE_REPORT.activeViewMeasurableCost
+    - AD_PERFORMANCE_REPORT.gmailClicksToWebsite
+    - AD_PERFORMANCE_REPORT.gmailSaves
+    - AD_PERFORMANCE_REPORT.gmailForwards
+    - AD_PERFORMANCE_REPORT.adID
+    - AD_PERFORMANCE_REPORT.adState
+    - AD_PERFORMANCE_REPORT.approvalStatus
+    - AD_PERFORMANCE_REPORT.adType
+    - AD_PERFORMANCE_REPORT.adStrength
+    - AD_PERFORMANCE_REPORT.autoAppliedAdSuggestion
+    - AD_PERFORMANCE_REPORT.ad
+    - AD_PERFORMANCE_REPORT.descriptionLine1
+    - AD_PERFORMANCE_REPORT.descriptionLine2
+    - AD_PERFORMANCE_REPORT.finalURL
+    - AD_PERFORMANCE_REPORT.displayURL
+    - AD_PERFORMANCE_REPORT.description
+    - AD_PERFORMANCE_REPORT.headline1
+    - AD_PERFORMANCE_REPORT.headline2
+    - AD_PERFORMANCE_REPORT.path1
+    - AD_PERFORMANCE_REPORT.businessName
+    - AD_PERFORMANCE_REPORT.callToActionTextResponsive
+    - AD_PERFORMANCE_REPORT.shortHeadline
+    - AD_PERFORMANCE_REPORT.longHeadline
+    - AD_PERFORMANCE_REPORT.promotionTextResponsive
+    - AD_PERFORMANCE_REPORT.responsiveSearchAdPath1
+    - AD_PERFORMANCE_REPORT.responsiveSearchAdHeadlines
+    - AD_PERFORMANCE_REPORT.responsiveSearchAdDescriptions
+    - AD_PERFORMANCE_REPORT.gmailAdBusinessName
+    - AD_PERFORMANCE_REPORT.gmailAdHeadline
+    - AD_PERFORMANCE_REPORT.gmailAdDescription
+    - AD_PERFORMANCE_REPORT.imageAdName
+    - AD_PERFORMANCE_REPORT.businessNameMultiAssetResponsiveDisplay
+    - AD_PERFORMANCE_REPORT.longHeadlineMultiAssetResponsiveDisplay
+    - AD_PERFORMANCE_REPORT.headlinesMultiAssetResponsiveDisplay
+    - AD_PERFORMANCE_REPORT.callToActionTextMultiAssetResponsiveDisplay
+    - AD_PERFORMANCE_REPORT.promotionTextMultiAssetResponsiveDisplay
+    - AD_PERFORMANCE_REPORT.imprAbsTop
+    - AD_PERFORMANCE_REPORT.activeViewAvgCPM
+    - AD_PERFORMANCE_REPORT.activeViewViewableCTR
+    - AD_PERFORMANCE_REPORT.activeViewMeasurableImprImpr
+    - AD_PERFORMANCE_REPORT.activeViewViewableImprMeasurableImpr
+    - AD_PERFORMANCE_REPORT.allConvRate
+    - AD_PERFORMANCE_REPORT.allConvValue
+    - AD_PERFORMANCE_REPORT.avgCost
+    - AD_PERFORMANCE_REPORT.avgCPC
+    - AD_PERFORMANCE_REPORT.avgCPE
+    - AD_PERFORMANCE_REPORT.avgCPM
+    - AD_PERFORMANCE_REPORT.avgCPV
+    - AD_PERFORMANCE_REPORT.avgPosition
+    - AD_PERFORMANCE_REPORT.convRate
+    - AD_PERFORMANCE_REPORT.totalConvValue
+    - AD_PERFORMANCE_REPORT.costAllConv
+    - AD_PERFORMANCE_REPORT.costConv
+    - AD_PERFORMANCE_REPORT.costConvCurrentModel
+    - AD_PERFORMANCE_REPORT.crossDeviceConv
+    - AD_PERFORMANCE_REPORT.ctr
+    - AD_PERFORMANCE_REPORT.conversionsCurrentModel
+    - AD_PERFORMANCE_REPORT.convValueCurrentModel
+    - AD_PERFORMANCE_REPORT.engagementRate
+    - AD_PERFORMANCE_REPORT.interactionRate
+    - AD_PERFORMANCE_REPORT.interactionTypes
+    - AD_PERFORMANCE_REPORT.imprTop
+    - AD_PERFORMANCE_REPORT.valueAllConv
+    - AD_PERFORMANCE_REPORT.valueConv
+    - AD_PERFORMANCE_REPORT.valueConvCurrentModel
+    - AD_PERFORMANCE_REPORT.videoPlayedTo100
+    - AD_PERFORMANCE_REPORT.videoPlayedTo25
+    - AD_PERFORMANCE_REPORT.videoPlayedTo50
+    - AD_PERFORMANCE_REPORT.videoPlayedTo75
+    - AD_PERFORMANCE_REPORT.viewRate
+  loaders:
+  - name: target-postgres
+    variant: meltano
+    pip_url: ../target-postgres
+    config:
+      dbname: meltano
+      port: 5432
+      schema: facebook
+      user: meltano
+  - name: target-postgres-adwords
+    inherit_from: target-postgres
+    config:
+      schema: google
+  transforms:
+  - name: tap-facebook
+    variant: meltano
+    pip_url: https://gitlab.com/meltano/dbt-tap-facebook.git
+  - name: tap-adwords
+    variant: meltano
+    pip_url: https://gitlab.com/meltano/dbt-tap-adwords.git
+  models:
+  - name: model-adwords
+    variant: meltano
+    pip_url: git+https://gitlab.com/meltano/model-adwords.git
+  dashboards:
+  - name: dashboard-adwords
+    variant: meltano
+    pip_url: git+https://gitlab.com/meltano/dashboard-adwords.git
+  transformers:
+  - name: dbt
+    pip_url: dbt==0.16.1
+  files:
+  - name: dbt
+    pip_url: git+https://gitlab.com/meltano/files-dbt.git
+schedules:
+- name: facebook-to-postgres
+  extractor: tap-facebook
+  loader: target-postgres
+  transform: skip
+  interval: '@once'
+  start_date: 2021-05-01 00:00:00
