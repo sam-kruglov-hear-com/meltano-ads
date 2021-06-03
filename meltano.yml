@@ -263,7 +263,6 @@ plugins:
     config:
       port: 5432
       schema: facebook
-      user: meltano
   - name: target-postgres-adwords
     inherit_from: target-postgres
     config:
@@ -283,16 +282,21 @@ plugins:
   - name: dashboard-adwords
     variant: meltano
     pip_url: git+https://gitlab.com/meltano/dashboard-adwords.git
+  orchestrators:
+  - name: airflow
+    pip_url: psycopg2 apache-airflow==1.10.14 --constraint https://raw.githubusercontent.com/apache/airflow/constraints-1.10.14/constraints-3.6.txt
   transformers:
   - name: dbt
     pip_url: dbt==0.16.1
   files:
   - name: dbt
     pip_url: git+https://gitlab.com/meltano/files-dbt.git
+  - name: airflow
+    pip_url: git+https://gitlab.com/meltano/files-airflow.git
 schedules:
 - name: facebook-to-postgres
   extractor: tap-facebook
   loader: target-postgres
-  transform: skip
-  interval: '@once'
+  transform: run
+  interval: '@daily'
   start_date: 2021-05-01 00:00:00
