@@ -261,7 +261,6 @@ plugins:
     variant: meltano
     pip_url: ../target-postgres
     config:
-      dbname: meltano
       port: 5432
       schema: facebook
       user: meltano
