@@ -268,9 +268,13 @@ plugins:
   - name: tap-facebook
     variant: meltano
     pip_url: https://gitlab.com/meltano/dbt-tap-facebook.git
+    vars:
+      schema: "{{ env_var('TARGET_POSTGRES_SCHEMA') }}"
   - name: tap-adwords
     variant: meltano
     pip_url: https://gitlab.com/meltano/dbt-tap-adwords.git
+    vars:
+      schema: "{{ env_var('TARGET_POSTGRES_ADWORDS_SCHEMA') }}"
   models:
   - name: model-adwords
     variant: meltano
