@@ -23,9 +23,9 @@ meltano:
       threads: 2
       host: "{{ env_var('PG_ADDRESS') }}"
       port: "{{ env_var('PG_PORT') | int }}"
-      user: "{{ env_var('PG_USERNAME') }}"
-      pass: "{{ env_var('PG_PASSWORD') }}"
-      dbname: "{{ env_var('PG_DATABASE') }}"
+      user: "{{ env_var('TARGET_POSTGRES_USER') }}"
+      pass: "{{ env_var('TARGET_POSTGRES_PASSWORD') }}"
+      dbname: "{{ env_var('TARGET_POSTGRES_DBNAME') }}"
       schema: "{{ env_var('DBT_TARGET_SCHEMA') }}"
     bigquery:
       type: bigquery
