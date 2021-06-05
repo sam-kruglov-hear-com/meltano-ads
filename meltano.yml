@@ -262,11 +262,8 @@ plugins:
     pip_url: ../target-postgres
     config:
       port: 5432
-      schema: facebook
   - name: target-postgres-adwords
     inherit_from: target-postgres
-    config:
-      schema: google
   transforms:
   - name: tap-facebook
     variant: meltano
