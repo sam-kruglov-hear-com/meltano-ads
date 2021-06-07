@@ -1,3 +1,4 @@
+# NOT MANAGED, ran command below:
 # This file is managed by the 'airflow' file bundle and updated automatically when `meltano upgrade` is run.
 # To prevent any manual changes from being overwritten, remove the file bundle from `meltano.yml` or disable automatic updates:
 #     meltano config --plugin-type=files airflow set _update orchestrate/dags/meltano.py false
@@ -30,9 +31,12 @@ DEFAULT_ARGS = {
     "email_on_failure": False,
     "email_on_retry": False,
     "catchup": False,
-    "retries": 1,
+    "retries": 10,
     "retry_delay": timedelta(minutes=5),
-    "concurrency": 1,
+    "dag_concurrency": 5,
+    "parallelism": 5,
+    "parsing_processes": 2,
+    "max_active_runs_per_dag": 1
 }
 
 DEFAULT_TAGS = ["meltano"]

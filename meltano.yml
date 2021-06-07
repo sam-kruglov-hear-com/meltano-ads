@@ -9,53 +9,53 @@ plugins:
     config:
       account_id: '675490969528187'
       insights_buffer_days: 1
-      start_date: '2021-06-01'
+      start_date: '2021-06-07'
       result_return_limit: 1000
     select:
-      - ads.bid_amount
-      - ads.tracking_specs
-      - ads.updated_time
-      - ads.campaign_id
-      - ads.conversion_specs
-      - ads.created_time
-      - ads.creative
-      - ads.creative.creative_id
-      - ads.creative.id
-      - ads.effective_status
-      - ads.id
-      - ads.last_updated_by_app_id
-      - ads.name
-      - ads.recommendations
-      - ads.source_ad_id
-      - ads.status
-      - ads.targeting
-      - ads.targeting.age_max
-      - ads.targeting.age_min
-      - ads_insights_dma.dma
-      - ads_insights_*.account_name
-      - ads_insights_*.date_start
-      - ads_insights_age_and_gender.age
-      - ads_insights_age_and_gender.gender
-      - ads_insights_hourly.hourly_stats_aggregated_by_advertiser_time_zone
-      - ads_insights_platform_and_device.impression_device
-      - ads_insights_platform_and_device.engagement_rate_ranking
-      - ads_insights_platform_and_device.placement
-      - ads_insights_platform_and_device.platform_position
-      - ads_insights_platform_and_device.publisher_platform
-      - ads_insights_platform_and_device.quality_ranking
-      - ads_insights*.impression*
-      - ads_insights*.clicks*
-      - ads_insights*.inline_post_engagement*
-      - ads_insights*.spend*
-      - ads_insights*.ad_id
-      - ads_insights*.campaign_id*
-      - ads_insights*.account_id*
-      - ads_insights*.spend*
-      - ads_insights*.index*
-      - ad_id
-      - '*hourly*'
-      - adsets.*
-      - campaigns.*
+    - ads.bid_amount
+    - ads.tracking_specs
+    - ads.updated_time
+    - ads.campaign_id
+    - ads.conversion_specs
+    - ads.created_time
+    - ads.creative
+    - ads.creative.creative_id
+    - ads.creative.id
+    - ads.effective_status
+    - ads.id
+    - ads.last_updated_by_app_id
+    - ads.name
+    - ads.recommendations
+    - ads.source_ad_id
+    - ads.status
+    - ads.targeting
+    - ads.targeting.age_max
+    - ads.targeting.age_min
+    - ads_insights_dma.dma
+    - ads_insights_*.account_name
+    - ads_insights_*.date_start
+    - ads_insights_age_and_gender.age
+    - ads_insights_age_and_gender.gender
+    - ads_insights_hourly.hourly_stats_aggregated_by_advertiser_time_zone
+    - ads_insights_platform_and_device.impression_device
+    - ads_insights_platform_and_device.engagement_rate_ranking
+    - ads_insights_platform_and_device.placement
+    - ads_insights_platform_and_device.platform_position
+    - ads_insights_platform_and_device.publisher_platform
+    - ads_insights_platform_and_device.quality_ranking
+    - ads_insights*.impression*
+    - ads_insights*.clicks*
+    - ads_insights*.inline_post_engagement*
+    - ads_insights*.spend*
+    - ads_insights*.ad_id
+    - ads_insights*.campaign_id*
+    - ads_insights*.account_id*
+    - ads_insights*.spend*
+    - ads_insights*.index*
+    - ad_id
+    - '*hourly*'
+    - adsets.*
+    - campaigns.*
   - name: tap-adwords
     variant: meltano
     pip_url: git+https://gitlab.com/meltano/tap-adwords.git
@@ -270,12 +270,12 @@ plugins:
     variant: meltano
     pip_url: https://gitlab.com/meltano/dbt-tap-facebook.git
     vars:
-      schema: "{{ env_var('TARGET_POSTGRES_SCHEMA') }}"
+      schema: '{{ env_var(''TARGET_POSTGRES_SCHEMA'') }}'
   - name: tap-adwords
     variant: meltano
     pip_url: https://gitlab.com/meltano/dbt-tap-adwords.git
     vars:
-      schema: "{{ env_var('TARGET_POSTGRES_ADWORDS_SCHEMA') }}"
+      schema: '{{ env_var(''TARGET_POSTGRES_ADWORDS_SCHEMA'') }}'
   models:
   - name: model-adwords
     variant: meltano
@@ -297,10 +297,12 @@ plugins:
     pip_url: git+https://gitlab.com/meltano/files-dbt.git
   - name: airflow
     pip_url: git+https://gitlab.com/meltano/files-airflow.git
+    update:
+      orchestrate/dags/meltano.py: false
 schedules:
 - name: facebook-to-postgres
   extractor: tap-facebook
   loader: target-postgres
   transform: run
   interval: '@daily'
-  start_date: 2021-05-01 00:00:00
+  start_date: 2021-06-07
