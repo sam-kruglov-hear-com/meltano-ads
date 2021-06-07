@@ -32,6 +32,7 @@ plugins:
       - ads.targeting.age_max
       - ads.targeting.age_min
       - ads_insights_dma.dma
+      - ads_insights_*.account_name
       - ads_insights_*.date_start
       - ads_insights_age_and_gender.age
       - ads_insights_age_and_gender.gender
