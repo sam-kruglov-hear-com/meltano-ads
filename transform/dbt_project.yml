@@ -22,3 +22,6 @@ clean-targets:
 - logs
 models:
   my_meltano_project: null
+  tap_facebook:
+    vars:
+      schema: '{{ env_var(''TARGET_POSTGRES_SCHEMA'') }}'
